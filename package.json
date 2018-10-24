@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/atrome/shut-the-box-CLI/issues"
   },
-  "homepage": "https://github.com/atrome/shut-the-box-CLI#readme"
+  "homepage": "https://github.com/atrome/shut-the-box-CLI#readme",
+  "dependencies": {}
 }
