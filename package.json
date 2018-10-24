@@ -1,0 +1,19 @@
+{
+  "name": "command-line-shut-the-box",
+  "version": "1.0.0",
+  "description": "A command line application of the \"Shut The Box\" game",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atrome/shut-the-box-CLI.git"
+  },
+  "author": "Alex Romanak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atrome/shut-the-box-CLI/issues"
+  },
+  "homepage": "https://github.com/atrome/shut-the-box-CLI#readme"
+}
