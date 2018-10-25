@@ -38,12 +38,14 @@ class shutTheBox {
   }
 
   flipNumber(number) {
-    if (1 <= number <= 9) {
-      this.board[number] = 'x';
-      return true;
-    } else if (10 <= number <= 12) {
-      this.board[number] = 'xx';
-      return true;
+    if (Number.isInteger(number)) {
+      if (number > 0 && number <= 9) {
+        this.board[number] = 'x';
+        return true;
+      } else if (number > 9 && number <= 12) {
+        this.board[number] = 'xx';
+        return true;
+      }
     }
     return false;
   }
@@ -70,7 +72,6 @@ class shutTheBox {
 
   askForRoll () {
     prompt('Roll? (y/n) ', input => {
-      console.log(typeof input);
       if (input === 'y' || input === 'yes') {
         console.log('Rolling..!');
         this.rollBoxDice();
@@ -103,6 +104,7 @@ class shutTheBox {
       });
 
       if (valid) {
+        console.log('OK!');
         numbers.forEach(num => {
           this.flipNumber(+num);
         });
