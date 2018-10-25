@@ -22,7 +22,7 @@ const diceRoll = () => {
 
 class shutTheBox {
   constructor(props) {
-    this.board = [1,2,3,4,5,6,7,8,9,10,11,12];
+    this.board = [0, 1,2,3,4,5,6,7,8,9,10,11,12];
     this.die1 = 1;
     this.die2 = 1;
   }
@@ -37,6 +37,17 @@ class shutTheBox {
     this.die2 = diceRoll();
   }
 
+  flipNumber(number) {
+    if (1 <= number <= 9) {
+      this.board[number] = 'x';
+      return true;
+    } else if (10 <= number <= 12) {
+      this.board[number] = 'xx';
+      return true;
+    }
+    return false;
+  }
+
   printBoard () {
     const a = this.board;
     const die1 = this.die1;
@@ -45,7 +56,7 @@ class shutTheBox {
     |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     ||                        Shut The Box                         ||
     ||-------------------------------------------------------------||
-    || ${a[0]} || ${a[1]} || ${a[2]} || ${a[3]} || ${a[4]} || ${a[5]} || ${a[6]} || ${a[7]} || ${a[8]} || ${a[9]} || ${a[10]} || ${a[11]} ||
+    || ${a[1]} || ${a[2]} || ${a[3]} || ${a[4]} || ${a[5]} || ${a[6]} || ${a[7]} || ${a[8]} || ${a[9]} || ${a[10]} || ${a[11]} || ${a[12]} ||
     ||-------------------------------------------------------------||
     ||                                                             ||
     ||                   |---|           |---|                     ||
@@ -59,6 +70,7 @@ class shutTheBox {
 
   askForRoll () {
     prompt('Roll? (y/n) ', input => {
+      console.log(typeof input);
       if (input === 'y' || input === 'yes') {
         console.log('Rolling..!');
         this.rollBoxDice();
@@ -69,26 +81,48 @@ class shutTheBox {
         process.exit();
       } else {
         console.log('Expected inputs are yes (y) or no (n).');
-        askForRoll();
+        this.askForRoll();
       }
     });  
   }
 
 
   askForNumberChoice () {
-    // Unfinished
-    prompt('Which number(s) would you like to flip up?', input => {
-      console.log(input);
+    
+    prompt('Which number(s) would you like to flip up? ', input => {
+      const numbers = input.split(' ');
+      let valid = true;
+            
+      numbers.forEach(num => {
+        if ((+num < 1) || (+num > 12)) {
+          valid = false;
+        }
+        if (this.board[num] !== +num) {
+          valid = false;
+        }
+      });
+
+      if (valid) {
+        numbers.forEach(num => {
+          this.flipNumber(+num);
+        });
+        this.printBoard();  
+      } else {
+        console.log('Sorry, that was not a valid input.');
+        console.log('Please only include space-delimited playable integers between 1 and 12.')
+        this.askForNumberChoice();
+      }
+      // process.exit();
     }); 
   }
 
 }
 
 
-let game = new shutTheBox;
+const game = new shutTheBox;
 
 game.welcome();
-game.askForRoll();
+game.askForNumberChoice();
 
 // Come back to this, MVP first
 // Maybe use promises and accept a callback?
